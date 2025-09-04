@@ -1,3 +1,16 @@
+from googleapiclient.http import MediaFileUpload
+youtube = build("youtube", "v3", credentials=creds)
+creds = Credentials.from_authorized_user_info(
+    creds_dict, 
+    scopes=["https://www.googleapis.com/auth/youtube.upload"]
+)
+# Load OAuth JSON from GitHub Secrets
+oauth_json = os.environ.get("YOUTUBE_OAUTH_JSON")
+creds_dict = json.loads(oauth_json)
+import os
+import json
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
 import os
 import requests
 from gtts import gTTS
@@ -11,7 +24,9 @@ import random
 # -----------------------------
 YOUTUBE_API_KEY = 'YOUR_YOUTUBE_API_KEY'
 CHANNEL_ID = 'YOUR_CHANNEL_ID'
-VIDEO_OUTPUT = 'output.mp4'
+VIDEO_OUTPUT = # Path to your generated video
+video_file = "path_to_your_video.mp4"  # <-- replace with actual file name or variable
+
 VIDEO_DURATION = 15  # seconds per image
 IMAGE_FOLDER = 'images/'  # folder with free stock images
 SCRIPT_TOPICS = ['Tech gadgets', 'Smart home accessories', 'AI tools', 'Mobile apps']
