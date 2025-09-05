@@ -1,7 +1,8 @@
 name: YouTube Automation
 
 on:
-  schedule:
+   schedule:
+    - cron: "0 0,4,8,12,16 * * *"
     - cron: "0 */4 * * *"   # Runs every 4 hours (6 times per day)
   workflow_dispatch:        # Allows manual run
 
@@ -22,3 +23,4 @@ jobs:
 
       - name: Run script
         run: python main.py
+ YOUTUBE_OAUTH_JSON: ${{ secrets.YOUTUBE_OAUTH_JSON }}
