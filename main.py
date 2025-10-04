@@ -2,19 +2,18 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 import os
 import json
-from googleapiclient.http import MediaFileUpload
-youtube = build("youtube", "v3", credentials=creds)
-creds = Credentials.from_authorized_user_info(
-    creds_dict, 
-    scopes=["https://www.googleapis.com/auth/youtube.upload"]
-)
-# Load credentials from environment variable
+
+# ✅ Load YouTube credentials from GitHub Secret
 creds_json = os.environ.get("YOUTUBE_OAUTH_JSON")
 if creds_json:
     creds_data = json.loads(creds_json)
     creds = Credentials.from_authorized_user_info(creds_data)
 else:
     raise Exception("YouTube OAuth credentials not found")
+
+# ✅ Create the YouTube API object
+youtube = build("youtube", "v3", credentials=creds)
+
 # Load OAuth JSON from GitHub Secrets
 oauth_json = os.environ.get("YOUTUBE_OAUTH_JSON")
 creds_dict = json.loads(oauth_json)
@@ -86,7 +85,6 @@ def create_video(audio_file, images):
 # STEP 5: Upload to YouTube
 # -----------------------------
 def upload_youtube(video_file, title, description, tags=[]):
-    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
     request = youtube.videos().insert(
         part="snippet,status",
         body={
