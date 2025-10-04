@@ -1,9 +1,20 @@
+from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
+import os
+import json
 from googleapiclient.http import MediaFileUpload
 youtube = build("youtube", "v3", credentials=creds)
 creds = Credentials.from_authorized_user_info(
     creds_dict, 
     scopes=["https://www.googleapis.com/auth/youtube.upload"]
 )
+# Load credentials from environment variable
+creds_json = os.environ.get("YOUTUBE_OAUTH_JSON")
+if creds_json:
+    creds_data = json.loads(creds_json)
+    creds = Credentials.from_authorized_user_info(creds_data)
+else:
+    raise Exception("YouTube OAuth credentials not found")
 # Load OAuth JSON from GitHub Secrets
 oauth_json = os.environ.get("YOUTUBE_OAUTH_JSON")
 creds_dict = json.loads(oauth_json)
