@@ -24,7 +24,8 @@ import random
 # -----------------------------
 YOUTUBE_API_KEY = 'YOUR_YOUTUBE_API_KEY'
 CHANNEL_ID = 'YOUR_CHANNEL_ID'
-VIDEO_OUTPUT = # Path to your generated video
+VIDEO_OUTPUT = "output.mp4"  # Path to your generated video
+
 video_file = "path_to_your_video.mp4"  # <-- replace with actual file name or variable
 
 VIDEO_DURATION = 15  # seconds per image
